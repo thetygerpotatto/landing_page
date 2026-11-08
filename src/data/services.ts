@@ -16,8 +16,8 @@ export const services: Service[] = [
   {
     id: 'website',
     icon: '</>',
-    priceUSD: 300,
-    priceCOP: 1_200_000,
+    priceUSD: 200,
+    priceCOP: 600_000,
     name: { en: 'Landing page / Website', es: 'Landing page / Sitio web' },
     description: {
       en: 'A fast, responsive website for your business, product or personal brand.',
@@ -31,8 +31,8 @@ export const services: Service[] = [
   {
     id: 'backend',
     icon: '{ }',
-    priceUSD: 600,
-    priceCOP: 2_400_000,
+    priceUSD: 500,
+    priceCOP: 2_000_000,
     featured: true,
     name: { en: 'Backend / REST API', es: 'Backend / API REST' },
     description: {
