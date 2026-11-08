@@ -1,0 +1,50 @@
+---
+import Section from './Section.astro';
+import { site } from '../site.config';
+import { type Lang, useTranslations } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const field = 'mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 dark:border-zinc-700 dark:bg-zinc-950';
+const direct = [
+  { label: 'Email', value: site.email, href: `mailto:${site.email}` },
+  { label: 'WhatsApp', value: `+${site.whatsapp}`, href: `https://wa.me/${site.whatsapp}` },
+  { label: 'LinkedIn', value: site.linkedin.replace(/^https?:\/\/(www\.)?/, ''), href: site.linkedin },
+  { label: 'GitHub', value: site.github.replace(/^https?:\/\//, ''), href: site.github },
+];
+---
+<Section id="contact" tag="05 // contact" title={t('contact.title')} sub={t('contact.sub')} alt>
+  <div class="grid gap-10 md:grid-cols-[1.4fr_1fr]">
+    <!-- Static form posted to Formspree: no backend needed. Set site.formspreeId. -->
+    <form action={`https://formspree.io/f/${site.formspreeId}`} method="POST" class="space-y-4 rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950">
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label class="block text-sm font-medium">{t('contact.name')}<input name="name" required autocomplete="name" class={field} /></label>
+        <label class="block text-sm font-medium">{t('contact.email')}<input name="email" type="email" required autocomplete="email" class={field} /></label>
+      </div>
+      <label class="block text-sm font-medium">{t('contact.type')}
+        <select name="type" class={field}>
+          <option value="freelance">{t('contact.type.freelance')}</option>
+          <option value="job">{t('contact.type.job')}</option>
+          <option value="other">{t('contact.type.other')}</option>
+        </select>
+      </label>
+      <label class="block text-sm font-medium">{t('contact.message')}<textarea name="message" rows="5" required class={field}></textarea></label>
+      <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <input type="hidden" name="_language" value={lang} />
+      <button type="submit" class="w-full rounded-lg bg-zinc-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-zinc-800 dark:bg-accent dark:text-zinc-950 dark:hover:bg-accent/90">{t('contact.send')}</button>
+    </form>
+
+    <div>
+      <p class="font-mono text-sm text-zinc-500">{t('contact.or')}</p>
+      <ul class="mt-4 space-y-3">
+        {direct.map((d) => (
+          <li>
+            <a href={d.href} class="group flex flex-col rounded-lg border border-zinc-200 bg-white px-4 py-3 transition hover:border-accent/60 dark:border-zinc-800 dark:bg-zinc-950">
+              <span class="text-xs uppercase text-zinc-500">{d.label}</span>
+              <span class="truncate font-medium group-hover:text-accent-strong dark:group-hover:text-accent">{d.value}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</Section>

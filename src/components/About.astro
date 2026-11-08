@@ -1,0 +1,50 @@
+---
+import Section from './Section.astro';
+import { site } from '../site.config';
+import { skills } from '../data/skills';
+import { type Lang, useTranslations } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const facts = [
+  [t('about.facts.location'), site.location],
+  [t('about.facts.education'), t('about.facts.education.value')],
+  [t('about.facts.languages'), t('about.facts.languages.value')],
+];
+const groups = [
+  [t('skills.backend'), skills.backend, true],
+  [t('skills.web'), skills.web, false],
+  [t('skills.tools'), skills.tools, false],
+] as const;
+---
+<Section id="about" tag="01 // about" title={t('about.title')} alt>
+  <div class="grid gap-10 md:grid-cols-[1.4fr_1fr]">
+    <div class="space-y-4 text-zinc-700 dark:text-zinc-300">
+      <p>{t('about.p1')}</p>
+      <p>{t('about.p2')}</p>
+    </div>
+    <dl class="space-y-4 rounded-xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950">
+      {facts.map(([k, v]) => (
+        <div><dt class="font-mono text-xs uppercase text-zinc-500">{k}</dt><dd class="mt-1 font-medium">{v}</dd></div>
+      ))}
+    </dl>
+  </div>
+
+  <h3 class="mt-16 text-xl font-bold text-zinc-950 dark:text-white">{t('skills.title')}</h3>
+  <div class="mt-6 grid gap-6 md:grid-cols-3">
+    {groups.map(([label, items, primary]) => (
+      <div>
+        <p class="mb-3 font-mono text-sm text-zinc-500">{label}</p>
+        <ul class="flex flex-wrap gap-2">
+          {items.map((s) => (
+            <li class:list={[
+              'rounded-md border px-2.5 py-1 text-sm',
+              primary
+                ? 'border-accent/50 bg-accent/10 text-accent-strong dark:text-accent'
+                : 'border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950',
+            ]}>{s}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</Section>

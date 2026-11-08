@@ -1,0 +1,33 @@
+---
+import Section from './Section.astro';
+import { getProjects } from '../data/projects';
+import { type Lang, useTranslations, localePath } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const projects = await getProjects(lang);
+---
+<Section id="projects" tag="02 // projects" title={t('projects.title')} sub={t('projects.sub')}>
+  <div class="grid gap-6 md:grid-cols-2">
+    {projects.map((p) => (
+      <article class="group relative flex flex-col overflow-hidden rounded-xl border border-zinc-200 transition hover:-translate-y-0.5 hover:border-accent/60 hover:shadow-lg dark:border-zinc-800">
+        {p.data.image ? (
+          <img src={p.data.image} alt={p.data.imageAlt ?? ''} loading="lazy" decoding="async" class="aspect-video w-full border-b border-zinc-200 object-cover dark:border-zinc-800" />
+        ) : (
+          <div aria-hidden="true" class="flex aspect-video items-center justify-center border-b border-zinc-200 bg-zinc-950 font-mono text-sm text-accent dark:border-zinc-800">
+            $ ./{p.slug}
+          </div>
+        )}
+        <div class="flex flex-1 flex-col p-6">
+        <h3 class="text-lg font-bold text-zinc-950 dark:text-white">
+          <a href={localePath(lang, `/projects/${p.slug}/`)} class="after:absolute after:inset-0">{p.data.title}</a>
+        </h3>
+        <p class="mt-2 flex-1 text-sm text-zinc-600 dark:text-zinc-400">{p.data.summary}</p>
+        <ul class="mt-4 flex flex-wrap gap-1.5">
+          {p.data.stack.map((s) => <li class="rounded bg-zinc-100 px-2 py-0.5 font-mono text-xs dark:bg-zinc-800">{s}</li>)}
+        </ul>
+        <p class="mt-5 text-sm font-semibold text-accent-strong group-hover:underline dark:text-accent">{t('projects.readMore')} →</p>
+        </div>
+      </article>
+    ))}
+  </div>
+</Section>

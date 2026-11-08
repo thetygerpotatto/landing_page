@@ -1,0 +1,17 @@
+---
+import { site } from '../site.config';
+import { type Lang, useTranslations } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+
+<footer class="border-t border-zinc-200 dark:border-zinc-800">
+  <div class="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-4 py-8 text-sm text-zinc-500 sm:flex-row sm:px-6">
+    <p>© {new Date().getFullYear()} {site.name}. {t('footer.built')}</p>
+    <div class="flex gap-4">
+      <a href={site.github} class="hover:text-zinc-900 dark:hover:text-white">GitHub</a>
+      <a href={site.linkedin} class="hover:text-zinc-900 dark:hover:text-white">LinkedIn</a>
+      <a href={`mailto:${site.email}`} class="hover:text-zinc-900 dark:hover:text-white">Email</a>
+    </div>
+  </div>
+</footer>

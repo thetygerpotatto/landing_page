@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from './Hero.astro';
+import About from './About.astro';
+import Projects from './Projects.astro';
+import Services from './Services.astro';
+import Process from './Process.astro';
+import Contact from './Contact.astro';
+import type { Lang } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+---
+<Base lang={lang}>
+  <Hero lang={lang} />
+  <About lang={lang} />
+  <Projects lang={lang} />
+  <Services lang={lang} />
+  <Process lang={lang} />
+  <Contact lang={lang} />
+</Base>

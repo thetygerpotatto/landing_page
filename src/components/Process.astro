@@ -1,0 +1,32 @@
+---
+import Section from './Section.astro';
+import { type Lang, useTranslations } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const steps = [1, 2, 3, 4] as const;
+const faqs = [1, 2, 3, 4] as const;
+---
+<Section id="process" tag="04 // process" title={t('process.title')}>
+  <ol class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    {steps.map((n) => (
+      <li class="rounded-xl border border-zinc-200 p-5 dark:border-zinc-800">
+        <p class="font-mono text-sm text-accent-strong dark:text-accent">0{n}</p>
+        <h3 class="mt-2 font-bold text-zinc-950 dark:text-white">{t(`process.${n}.title` as const)}</h3>
+        <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{t(`process.${n}.body` as const)}</p>
+      </li>
+    ))}
+  </ol>
+
+  <h3 class="mt-16 text-xl font-bold text-zinc-950 dark:text-white">{t('faq.title')}</h3>
+  <div class="mt-6 divide-y divide-zinc-200 rounded-xl border border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
+    {faqs.map((n) => (
+      <details class="group p-5">
+        <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+          {t(`faq.${n}.q` as const)}
+          <span class="ml-4 font-mono text-zinc-400 transition group-open:rotate-45" aria-hidden="true">+</span>
+        </summary>
+        <p class="mt-3 text-sm text-zinc-600 dark:text-zinc-400">{t(`faq.${n}.a` as const)}</p>
+      </details>
+    ))}
+  </div>
+</Section>
