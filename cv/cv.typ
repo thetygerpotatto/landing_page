@@ -59,6 +59,7 @@
     Zarzal, Valle del Cauca, Colombia #h(0.35em)•#h(0.35em)
     #link("tel:+573165618529", phone) #h(0.35em)•#h(0.35em)
     #link("mailto:" + email, email) \
+    #link("https://jaimenorena.dev", text(fill: accent, weight: "bold", "jaimenorena.dev")) #h(0.35em)•#h(0.35em)
     #link("https://" + github, github) #h(0.35em)•#h(0.35em)
     #link(linkedin-url, linkedin)
   ]
